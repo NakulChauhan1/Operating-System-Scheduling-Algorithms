@@ -55,7 +55,7 @@ int main()
       struct row Table[N+1];
       int WT = 0, TAT = 0, pos, z;
       int p[10], prio[10], AT[10], BT[10], temp[10], b;
-      float average_wait_time, average_turnaround_time;
+      float average_wait_time = 0, average_turnaround_time = 0;
       int c = 0, time_quantum = 2,j;
       int i, total = 0, x;
 
@@ -125,6 +125,8 @@ int main()
         {
             x--;
             printf("\nProcess[%d]\t\t%d\t\t\t %d\t\t\t\t %d     \t\t", p[i], BT[i], total - AT[i], total - AT[i] - BT[i]);
+            average_turnaround_time += (total - AT[i]);
+            average_wait_time += total - AT[i] - BT[i];
             WT = WT + total - AT[i] - BT[i];
             TAT = TAT + total - AT[i];
             c = 0;
@@ -142,5 +144,10 @@ int main()
                   i = 0;
             }
       }
+       average_wait_time /= N;
+       average_turnaround_time /= N;
+
+       printf("\n\nAverage Waiting Time is: %f ",average_wait_time);
+       printf("\n\nAverage Turnaround Time is: %f \n\n", average_turnaround_time);
     return 0;
 }
